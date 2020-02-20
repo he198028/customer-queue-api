@@ -7,4 +7,8 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class Customer {
 
+    private String name;
+
+    private String phone;
+
 }
