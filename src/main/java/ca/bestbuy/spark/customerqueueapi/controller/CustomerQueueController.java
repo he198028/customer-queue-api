@@ -24,7 +24,7 @@ public class CustomerQueueController {
     }
 
     @PutMapping(value = "/customers")
-    public boolean addToQueue(Customer customer) {
+    public boolean addToQueue(@RequestBody Customer customer) {
         return queueService.AddToQueue(customer);
     }
 
