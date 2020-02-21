@@ -20,7 +20,7 @@ GET /customers
 
 Response: List of all customers in the queue
 
-e.g. { 
+e.g. [ 
         { 
         "name": "Test1",  
         "phone": "+16041231234"
@@ -29,7 +29,7 @@ e.g. {
          "name": "Test2",  
          "phone": "+16041231235"
 	       }      
-      }
+      ]
       
  3. Delete first customer from the queue
  
