@@ -32,7 +32,7 @@ public class QueueServiceImpl implements QueueService {
             queue.put(customer);
 
             Message.creator(new PhoneNumber(customer.getPhone()),new PhoneNumber(SENDERS_PHONE),
-                    "Welcome " + customer.getName()+ " an associate we'll be with you shortly.").create();
+                    "Thanks for checking in, " + customer.getName()+ "!  An associate will be with you shortly.").create();
 
             return true;
         } catch(InterruptedException e) {
@@ -50,7 +50,7 @@ public class QueueServiceImpl implements QueueService {
         Customer customer = (Customer)queue.take();
         try {
             Message.creator(new PhoneNumber(customer.getPhone()),new PhoneNumber(SENDERS_PHONE),
-                    "Heads up " + customer.getName()+ ", You are next in the line.").create();
+                    "Heads up " + customer.getName()+ ": You're next in line. An associate will be with you momentarily.").create();
         } catch (Exception e) {
             
         }
