@@ -3,29 +3,33 @@ package ca.bestbuy.spark.customerqueueapi.controller;
 
 import ca.bestbuy.spark.customerqueueapi.domain.Customer;
 import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import ca.bestbuy.spark.customerqueueapi.service.QueueService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 public class CustomerQueueController {
+    private final QueueService queueService;
+
+    @Autowired
+    public CustomerQueueController(QueueService queueService) {
+        this.queueService = queueService;
+    }
 
     @GetMapping(value = "/customers")
     public List<Customer> getQueue() {
-
-        return null;
+        return queueService.getQueue();
     }
 
     @PutMapping(value = "/customers")
-    public Customer addToQueue(Customer customer) {
-    //TODO invoke service class to add to queue
-        return customer;
+    public boolean addToQueue(Customer customer) {
+        return queueService.AddToQueue(customer);
     }
 
-
     @DeleteMapping(value = "/customers")
-    public void deleteFromQueue(){
-    //TODO invoke service class to delete  queue
+    public long deleteFromQueue() throws Exception {
+        return queueService.UpdateQueue();
     }
 }
