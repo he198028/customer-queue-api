@@ -47,11 +47,13 @@ public class QueueServiceImpl implements QueueService {
 
     @Override
     public long UpdateQueue() throws InterruptedException {
-        queue.take();
-
-        Customer customer = (Customer)queue.peek();
-        Message.creator(new PhoneNumber(customer.getPhone()),new PhoneNumber(SENDERS_PHONE),
-                "Heads up " + customer.getName()+ ", You are next in the line.").create();
+        Customer customer = (Customer)queue.take();
+        try {
+            Message.creator(new PhoneNumber(customer.getPhone()),new PhoneNumber(SENDERS_PHONE),
+                    "Heads up " + customer.getName()+ ", You are next in the line.").create();
+        } catch (Exception e) {
+            
+        }
 
         if (timeStamp.get()==0) {
             timeStamp.set(Instant.now().toEpochMilli());
