@@ -2,6 +2,7 @@ package ca.bestbuy.spark.customerqueueapi.controller;
 
 
 import ca.bestbuy.spark.customerqueueapi.domain.Customer;
+import static ca.bestbuy.spark.customerqueueapi.domain.Constants.*;
 import java.util.List;
 
 import ca.bestbuy.spark.customerqueueapi.service.QueueService;
@@ -16,13 +17,11 @@ import com.twilio.type.PhoneNumber;
 public class CustomerQueueController {
     private final QueueService queueService;
     
-    public static final String ACCOUNT_SID = "ACb8e48e469f2a1623b567331935a37639";
-	public static final String AUTH_TOKEN = "0e67b5bef1a6e89f67153283834b6d4e";
-	public static final String SENDERS_PHONE= "+12055126627";
-
     @Autowired
     public CustomerQueueController(QueueService queueService) {
         this.queueService = queueService;
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
 
     @GetMapping(value = "/customers")
@@ -32,8 +31,6 @@ public class CustomerQueueController {
 
     @PutMapping(value = "/customers")
     public boolean addToQueue(@RequestBody Customer customer) {
-    	
-    	Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     	
     	Message.creator(new PhoneNumber(customer.getPhone()),new PhoneNumber(SENDERS_PHONE),
     			"Welcome " + customer.getName()+ " an associate we'll be with you shortly.").create();
