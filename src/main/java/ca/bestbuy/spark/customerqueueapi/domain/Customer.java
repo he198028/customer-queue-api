@@ -11,4 +11,5 @@ public class Customer {
 
     private String phone;
 
+    private String dept;
 }
